@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Legends of Iron | AAA 3D Mobile Fighting Game Prototype</title>
+  <link rel="stylesheet" href="index.css">
+  <!-- Google Fonts for futuristic premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="game-app">
+    
+    <!-- 1. SPLASH SCREEN -->
+    <div id="screen-splash" class="screen active">
+      <div class="background-overlay"></div>
+      <div class="logo-container">
+        <h1 class="logo-title">LEGENDS</h1>
+        <div class="logo-divider">
+          <span class="divider-line"></span>
+          <span class="divider-text">OF</span>
+          <span class="divider-line"></span>
+        </div>
+        <h1 class="logo-title iron-text">IRON</h1>
+        <p class="subtitle">STEEL FIGHTING CHAMPIONSHIP</p>
+      </div>
+      <div class="tap-to-play blinking">
+        <span>TAP TO START</span>
+      </div>
+      <div class="splash-footer">
+        <p>V1.0 PROTOTYPE • FOR MOBILE & PC</p>
+      </div>
+    </div>
+
+    <!-- 2. MAIN MENU SCREEN -->
+    <div id="screen-menu" class="screen">
+      <div class="menu-header">
+        <div class="header-logo">LEGENDS OF <span class="iron-text">IRON</span></div>
+        <div class="header-status">SERVER ONLINE</div>
+      </div>
+      <div class="menu-container">
+        <div class="menu-options">
+          <button class="menu-btn active" data-action="arcade"><span class="btn-glow"></span>ARCADE MODE</button>
+          <button class="menu-btn" data-action="versus"><span class="btn-glow"></span>VERSUS (P1 VS AI)</button>
+          <button class="menu-btn" data-action="practice"><span class="btn-glow"></span>PRACTICE DOJO</button>
+          <button class="menu-btn" data-action="settings"><span class="btn-glow"></span>SETTINGS</button>
+        </div>
+        <div class="menu-preview-panel">
+          <div class="preview-card">
+            <h3 id="menu-desc-title">ARCADE MODE</h3>
+            <p id="menu-desc-text">Fight your way through a series of challenging combatants to claim the title of Legend of Iron.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CHARACTER SELECT SCREEN -->
+    <div id="screen-char-select" class="screen">
+      <div class="screen-title-banner">
+        <h2>SELECT YOUR FIGHTER</h2>
+        <p>Roster: 6 Playable / 24 Locked in Prototype</p>
+      </div>
+      
+      <div class="char-select-layout">
+        <!-- P1 Character Profile Details -->
+        <div class="fighter-profile p1-profile">
+          <div class="profile-card">
+            <div class="profile-glow" id="p1-card-glow"></div>
+            <span class="p1-badge">P1</span>
+            <div class="profile-3d-preview" id="p1-3d-preview"></div>
+            <h3 id="p1-name">IRON FIST V</h3>
+            <p class="profile-title" id="p1-title">The Chrome Brawler</p>
+            
+            <div class="customization-controls">
+              <div class="costume-selector">
+                <button class="custom-btn active" id="btn-p1-costume-a">COSTUME A</button>
+                <button class="custom-btn" id="btn-p1-costume-b">COSTUME B</button>
+              </div>
+              <div class="color-variants">
+                <button class="color-dot active" style="background-color: var(--primary);" id="btn-p1-color-1" data-color="1"></button>
+                <button class="color-dot" style="background-color: var(--secondary);" id="btn-p1-color-2" data-color="2"></button>
+                <button class="color-dot" style="background-color: #ff3300;" id="btn-p1-color-3" data-color="3"></button>
+              </div>
+            </div>
+
+            <div class="profile-stats">
+              <div class="stat-row"><span>POWER</span><div class="bar-outer"><div class="bar-inner" id="p1-stat-power" style="width: 90%"></div></div></div>
+              <div class="stat-row"><span>SPEED</span><div class="bar-outer"><div class="bar-inner" id="p1-stat-speed" style="width: 60%"></div></div></div>
+              <div class="stat-row"><span>DEFENSE</span><div class="bar-outer"><div class="bar-inner" id="p1-stat-defense" style="width: 70%"></div></div></div>
+            </div>
+            <div class="profile-bio" id="p1-bio">...</div>
+          </div>
+        </div>
+
+        <!-- Middle Characters Selection Grid -->
+        <div class="grid-container">
+          <div class="char-grid" id="char-grid-node">
+            <!-- Dynamically populated via Main.js -->
+          </div>
+        </div>
+
+        <!-- P2/AI Character Profile Details -->
+        <div class="fighter-profile p2-profile">
+          <div class="profile-card">
+            <div class="profile-glow" id="p2-card-glow"></div>
+            <span class="p2-badge">AI</span>
+            <div class="profile-3d-preview" id="p2-3d-preview"></div>
+            <h3 id="p2-name">KENDJI-X</h3>
+            <p class="profile-title" id="p2-title">The Ronin Prototype</p>
+
+            <div class="customization-controls">
+              <div class="costume-selector">
+                <button class="custom-btn active" id="btn-p2-costume-a">COSTUME A</button>
+                <button class="custom-btn" id="btn-p2-costume-b">COSTUME B</button>
+              </div>
+              <div class="color-variants">
+                <button class="color-dot active" style="background-color: var(--primary);" id="btn-p2-color-1" data-color="1"></button>
+                <button class="color-dot" style="background-color: var(--secondary);" id="btn-p2-color-2" data-color="2"></button>
+                <button class="color-dot" style="background-color: #ff3300;" id="btn-p2-color-3" data-color="3"></button>
+              </div>
+            </div>
+
+            <div class="profile-stats">
+              <div class="stat-row"><span>POWER</span><div class="bar-outer"><div class="bar-inner" id="p2-stat-power" style="width: 80%"></div></div></div>
+              <div class="stat-row"><span>SPEED</span><div class="bar-outer"><div class="bar-inner" id="p2-stat-speed" style="width: 70%"></div></div></div>
+              <div class="stat-row"><span>DEFENSE</span><div class="bar-outer"><div class="bar-inner" id="p2-stat-defense" style="width: 60%"></div></div></div>
+            </div>
+            <div class="profile-bio" id="p2-bio">...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="char-select-controls">
+        <button class="action-btn back-btn" id="btn-char-back">BACK</button>
+        <button class="action-btn select-btn" id="btn-char-confirm">CONFIRM FIGHTER</button>
+      </div>
+    </div>
+
+    <!-- 4. ARENA SELECT SCREEN -->
+    <div id="screen-stage-select" class="screen">
+      <div class="screen-title-banner">
+        <h2>CHOOSE ARENA</h2>
+        <p>Select your combat zone</p>
+      </div>
+      
+      <div class="stage-carousel-container">
+        <button class="carousel-nav" id="btn-stage-prev">&lt;</button>
+        <div class="stage-view-card">
+          <div class="stage-img-glow" id="stage-glow"></div>
+          <div class="stage-info-content">
+            <h3 id="stage-name">NEON SHIBUYA</h3>
+            <div class="stage-details-row">
+              <span class="stage-weather" id="stage-weather">Weather: Rainy</span>
+              <span class="stage-time" id="stage-time-of-day">Time: Midnight</span>
+            </div>
+            <p class="stage-desc" id="stage-desc">A futuristic cityscape with towering digital billboards...</p>
+          </div>
+        </div>
+        <button class="carousel-nav" id="btn-stage-next">&gt;</button>
+      </div>
+
+      <div class="char-select-controls">
+        <button class="action-btn back-btn" id="btn-stage-back">BACK</button>
+        <button class="action-btn select-btn glow-btn" id="btn-stage-confirm">FIGHT!</button>
+      </div>
+    </div>
+
+    <!-- 5. SETTINGS SCREEN -->
+    <div id="screen-settings" class="screen">
+      <div class="settings-box">
+        <h2>SYSTEM SETTINGS</h2>
+        
+        <div class="settings-tabs">
+          <button class="settings-tab-btn active" data-tab="tab-match">MATCH RULES</button>
+          <button class="settings-tab-btn" data-tab="tab-controls">CONTROLS</button>
+          <button class="settings-tab-btn" data-tab="tab-training">TRAINING</button>
+          <button class="settings-tab-btn" data-tab="tab-audio-graphics">AUDIO/VIDEO</button>
+          <button class="settings-tab-btn" data-tab="tab-online">ONLINE</button>
+        </div>
+
+        <div class="settings-content">
+          <!-- 5.1 MATCH RULES TAB -->
+          <div id="tab-match" class="settings-tab-panel active">
+            <div class="setting-item">
+              <span class="setting-label">AI DIFFICULTY</span>
+              <div class="setting-controls">
+                <button class="diff-btn" data-diff="Easy">EASY</button>
+                <button class="diff-btn active" data-diff="Normal">NORMAL</button>
+                <button class="diff-btn" data-diff="Hard">HARD</button>
+                <button class="diff-btn" data-diff="Expert">EXPERT</button>
+                <button class="diff-btn" data-diff="Legend">LEGEND</button>
+              </div>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">MATCH LENGTH</span>
+              <div class="setting-controls">
+                <button class="match-btn active" data-rounds="2">BEST OF 3</button>
+                <button class="match-btn" data-rounds="3">BEST OF 5</button>
+                <button class="match-btn" data-rounds="4">BEST OF 7</button>
+              </div>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">ROUND TIMER</span>
+              <div class="setting-controls">
+                <button class="timer-btn" data-timer="30">30S</button>
+                <button class="timer-btn" data-timer="45">45S</button>
+                <button class="timer-btn" data-timer="60">60S</button>
+                <button class="timer-btn active" data-timer="99">99S</button>
+                <button class="timer-btn" data-timer="Unlimited">∞ TIME</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5.2 CONTROLS TAB -->
+          <div id="tab-controls" class="settings-tab-panel">
+            <div class="setting-item">
+              <span class="setting-label">LAYOUT PRESET</span>
+              <div class="setting-controls">
+                <button class="preset-btn" data-preset="Beginner">BEGINNER</button>
+                <button class="preset-btn active" data-preset="Classic">CLASSIC</button>
+                <button class="preset-btn" data-preset="Competitive">COMPETITIVE</button>
+                <button class="preset-btn" data-preset="Custom">CUSTOM</button>
+              </div>
+            </div>
+            <div class="setting-item range-item">
+              <span class="setting-label">BUTTON SIZE (<span id="val-btn-size">1.0</span>x)</span>
+              <input type="range" class="settings-slider" id="slider-btn-size" min="0.6" max="1.5" step="0.05" value="1.0">
+            </div>
+            <div class="setting-item range-item">
+              <span class="setting-label">BUTTON OPACITY (<span id="val-btn-opacity">75</span>%)</span>
+              <input type="range" class="settings-slider" id="slider-btn-opacity" min="0.2" max="1.0" step="0.05" value="0.75">
+            </div>
+            <div class="setting-item range-item">
+              <span class="setting-label">BUTTON SPACING (<span id="val-btn-spacing">12</span>px)</span>
+              <input type="range" class="settings-slider" id="slider-btn-spacing" min="5" max="25" step="1" value="12">
+            </div>
+            <div class="setting-item range-item">
+              <span class="setting-label">JOYSTICK DEAD ZONE (<span id="val-btn-deadzone">0.15</span>)</span>
+              <input type="range" class="settings-slider" id="slider-btn-deadzone" min="0.05" max="0.4" step="0.05" value="0.15">
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">HANDEDNESS</span>
+              <div class="setting-controls">
+                <button class="handed-btn active" data-handed="right">RIGHT-HANDED</button>
+                <button class="handed-btn" data-handed="left">LEFT-HANDED</button>
+              </div>
+            </div>
+            
+            <div class="keyboard-controls-guide">
+              <h3>KEYBOARD GUIDE (PC)</h3>
+              <div class="keys-grid">
+                <div><kbd>A</kbd>/<kbd>D</kbd> Move L/R</div>
+                <div><kbd>W</kbd> Jump</div>
+                <div><kbd>S</kbd> Crouch / Block</div>
+                <div><kbd>Space</kbd> Dash</div>
+                <div><kbd>J</kbd> Light Punch</div>
+                <div><kbd>K</kbd> Light Kick</div>
+                <div><kbd>L</kbd> Grab Throw</div>
+                <div><kbd>I</kbd> Special Projectile</div>
+                <div><kbd>O</kbd> ULTIMATE ATTACK</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5.3 TRAINING OPTIONS TAB -->
+          <div id="tab-training" class="settings-tab-panel">
+            <div class="setting-item">
+              <span class="setting-label">INFINITE HEALTH</span>
+              <button class="toggle-btn" id="btn-train-hp">OFF</button>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">INFINITE RAGE/ENERGY</span>
+              <button class="toggle-btn" id="btn-train-rage">OFF</button>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">AI DUMMY BEHAVIOR</span>
+              <div class="setting-controls">
+                <button class="dummy-btn active" data-behavior="Idle">IDLE</button>
+                <button class="dummy-btn" data-behavior="Guard">GUARD</button>
+                <button class="dummy-btn" data-behavior="Attack">ATTACK</button>
+                <button class="dummy-btn" data-behavior="Counter">COUNTER</button>
+              </div>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">SHOW INPUT HISTORY</span>
+              <button class="toggle-btn active" id="btn-train-inputs">ON</button>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">SHOW FRAME DATA</span>
+              <button class="toggle-btn active" id="btn-train-framedata">ON</button>
+            </div>
+          </div>
+
+          <!-- 5.4 AUDIO/VIDEO TAB -->
+          <div id="tab-audio-graphics" class="settings-tab-panel">
+            <div class="setting-item range-item">
+              <span class="setting-label">MASTER VOLUME (<span id="val-vol-master">100</span>%)</span>
+              <input type="range" class="settings-slider" id="slider-vol-master" min="0" max="100" step="5" value="100">
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">SOUND EFFECTS</span>
+              <button class="toggle-btn active" id="btn-sound-toggle">ON</button>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">GRAPHICS PRESET</span>
+              <div class="setting-controls">
+                <button class="graphics-btn" data-preset="Low">LOW</button>
+                <button class="graphics-btn active" data-preset="Medium">MEDIUM</button>
+                <button class="graphics-btn" data-preset="High">HIGH</button>
+                <button class="graphics-btn" data-preset="Ultra">ULTRA</button>
+              </div>
+            </div>
+            <div class="setting-item range-item">
+              <span class="setting-label">CAMERA SHAKE (<span id="val-cam-shake">100</span>%)</span>
+              <input type="range" class="settings-slider" id="slider-cam-shake" min="0" max="200" step="10" value="100">
+            </div>
+            <div class="setting-item range-item">
+              <span class="setting-label">CAMERA SENSITIVITY (<span id="val-cam-sens">1.0</span>x)</span>
+              <input type="range" class="settings-slider" id="slider-cam-sens" min="0.5" max="2.0" step="0.1" value="1.0">
+            </div>
+          </div>
+
+          <!-- 5.5 ONLINE TAB -->
+          <div id="tab-online" class="settings-tab-panel">
+            <div class="setting-item">
+              <span class="setting-label">MATCHMAKING REGION</span>
+              <div class="setting-controls">
+                <button class="region-btn active">NORTH AMERICA</button>
+                <button class="region-btn">EUROPE</button>
+                <button class="region-btn">ASIA</button>
+                <button class="region-btn">OCEANIA</button>
+              </div>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">PRIVATE ROOM PASSWORD</span>
+              <input type="text" class="settings-text-input" placeholder="Enter Password..." disabled>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">SERVER STATUS</span>
+              <strong style="color: var(--cyan); text-shadow: var(--shadow-neon);">ONLINE (12ms ping)</strong>
+            </div>
+          </div>
+        </div>
+        
+        <button class="action-btn close-btn" id="btn-settings-back">SAVE & CLOSE</button>
+      </div>
+    </div>
+
+    <!-- 6. FIGHT HUD & RENDER VIEW CONTAINER -->
+    <div id="screen-fight" class="screen">
+      <div id="three-container"></div>
+      
+      <!-- Floating Move List Panel -->
+      <div id="movelist-panel" class="movelist-panel">
+        <div class="movelist-header">
+          <h3>MOVE LIST</h3>
+        </div>
+        <div id="movelist-content" class="movelist-content">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+      
+      <!-- FIGHT HUD OVERLAY -->
+      <div id="fight-hud">
+        <!-- Top Health Bar Panel -->
+        <div class="hud-top">
+          <!-- Player 1 Indicators -->
+          <div class="hud-player p1-hud">
+            <div class="hud-info">
+              <div class="fighter-small-portrait" id="hud-p1-portrait"></div>
+              <div class="hud-names">
+                <span class="hud-name" id="hud-p1-name">IRON FIST V</span>
+                <span class="combo-tracker" id="hud-p1-combos"></span>
+              </div>
+            </div>
+            <div class="health-bar-container">
+              <div class="health-bar-inner" id="hud-p1-health" style="width: 100%;"></div>
+              <div class="health-bar-red-catch" id="hud-p1-health-catch" style="width: 100%;"></div>
+            </div>
+            <div class="round-markers" id="hud-p1-rounds">
+              <span class="marker"></span>
+              <span class="marker"></span>
+              <span class="marker"></span>
+            </div>
+            <div class="energy-bar-container">
+              <div class="energy-bar-inner" id="hud-p1-rage" style="width: 0%;"></div>
+              <span class="energy-text">RAGE</span>
+            </div>
+          </div>
+
+          <!-- Mid Timer and Round Info -->
+          <div class="hud-mid">
+            <div class="round-indicator" id="hud-round-label">ROUND 1</div>
+            <div class="timer-row">
+              <button id="btn-pause-toggle" class="hud-pause-btn">⏸</button>
+              <div class="round-timer" id="hud-timer">99</div>
+            </div>
+            <button id="btn-movelist-toggle" class="movelist-toggle-btn">MOVE LIST</button>
+          </div>
+
+          <!-- Player 2 Indicators -->
+          <div class="hud-player p2-hud">
+            <div class="hud-info">
+              <div class="hud-names text-right">
+                <span class="hud-name" id="hud-p2-name">KENDJI-X</span>
+                <span class="combo-tracker" id="hud-p2-combos"></span>
+              </div>
+              <div class="fighter-small-portrait" id="hud-p2-portrait"></div>
+            </div>
+            <div class="health-bar-container">
+              <div class="health-bar-inner align-right" id="hud-hud-p2-health" style="width: 100%;"></div>
+              <div class="health-bar-red-catch align-right" id="hud-hud-p2-health-catch" style="width: 100%;"></div>
+            </div>
+            <div class="round-markers align-right" id="hud-p2-rounds">
+              <span class="marker"></span>
+              <span class="marker"></span>
+              <span class="marker"></span>
+            </div>
+            <div class="energy-bar-container align-right">
+              <div class="energy-bar-inner align-right" id="hud-hud-p2-rage" style="width: 0%;"></div>
+              <span class="energy-text">RAGE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big Combo counter displays on left/right edges of screen -->
+        <div id="combo-display-left" class="combo-display">
+          <div class="count">0</div>
+          <div class="label">HITS</div>
+        </div>
+        <div id="combo-display-right" class="combo-display">
+          <div class="count">0</div>
+          <div class="label">HITS</div>
+        </div>
+
+        <!-- Mid Screen Banners ("FIGHT!", "ROUND 1", "K.O.") -->
+        <div id="hud-center-banner" class="center-banner">
+          <h1 id="banner-text">ROUND 1</h1>
+        </div>
+
+        <!-- MOBILE TOUCH CONTROLS OVERLAY -->
+        <div id="mobile-controls">
+          <!-- Left Floating Virtual Joystick area -->
+          <div id="joystick-zone">
+            <div id="joystick-ring">
+              <div id="joystick-handle"></div>
+            </div>
+          </div>
+
+          <!-- Right Action Buttons matrix -->
+          <div id="action-buttons-zone">
+            <div class="action-grid-row">
+              <button class="hud-btn dash-btn" id="btn-ctrl-dash">DASH</button>
+              <button class="hud-btn dodge-btn" id="btn-ctrl-dodge">DODGE</button>
+              <button class="hud-btn jump-btn" id="btn-ctrl-jump">JUMP</button>
+            </div>
+            <div class="action-grid-row">
+              <button class="hud-btn grab-btn" id="btn-ctrl-grab">GRAB</button>
+              <button class="hud-btn special-btn" id="btn-ctrl-special">SPEC</button>
+              <button class="hud-btn ult-btn" id="btn-ctrl-ultimate">ULT</button>
+            </div>
+            <div class="action-grid-row main-attacks">
+              <button class="hud-btn attack-btn punch-btn" id="btn-ctrl-punch">PUNCH</button>
+              <button class="hud-btn attack-btn kick-btn" id="btn-ctrl-kick">KICK</button>
+              <button class="hud-btn block-btn" id="btn-ctrl-block">BLOCK</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRAINING MODE HUD OVERLAYS -->
+        <div id="training-overlay" class="training-overlay">
+          <div id="training-input-history" class="training-input-history"></div>
+          <div id="training-frame-data" class="training-frame-data">
+            <div class="frame-row">STARTUP: <strong id="frame-startup">0F</strong></div>
+            <div class="frame-row">ACTIVE: <strong id="frame-active">0F</strong></div>
+            <div class="frame-row">RECOVERY: <strong id="frame-recovery">0F</strong></div>
+            <div class="frame-row">ADVANTAGE: <strong id="frame-advantage">0F</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. PAUSE SCREEN OVERLAY -->
+    <div id="pause-overlay" class="pause-overlay">
+      <div class="pause-box">
+        <h2>GAME PAUSED</h2>
+        <div class="pause-options">
+          <button class="action-btn select-btn glow-btn" id="btn-pause-resume">RESUME</button>
+          <button class="action-btn select-btn" id="btn-pause-restart">RESTART MATCH</button>
+          <button class="action-btn select-btn" id="btn-pause-movelist">CHARACTER MOVE LIST</button>
+          <button class="action-btn select-btn" id="btn-pause-settings">SYSTEM SETTINGS</button>
+          <button class="action-btn back-btn" id="btn-pause-exit">EXIT TO MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. CONTINUE SCREEN -->
+    <div id="screen-continue" class="screen">
+      <div class="continue-box">
+        <h1 class="continue-title">CONTINUE?</h1>
+        <div id="continue-timer" class="continue-timer">10</div>
+        <div class="continue-options">
+          <button class="action-btn select-btn glow-btn" id="btn-continue-yes">YES</button>
+          <button class="action-btn back-btn" id="btn-continue-no">NO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. GAME OVER SCREEN -->
+    <div id="screen-gameover" class="screen">
+      <div class="gameover-box">
+        <h1 id="gameover-title">VICTORY</h1>
+        <p class="winner-announcement" id="gameover-subtitle">PLAYER 1 WINS THE MATCH</p>
+        
+        <div class="match-stats">
+          <h3>MATCH STATISTICS</h3>
+          <div class="stat-grid">
+            <div class="stat-cell"><span>TOTAL DAMAGE</span><strong id="stat-total-damage">342 HP</strong></div>
+            <div class="stat-cell"><span>LONGEST COMBO</span><strong id="stat-longest-combo">12 HITS</strong></div>
+            <div class="stat-cell"><span>ACCURACY</span><strong id="stat-accuracy">74%</strong></div>
+            <div class="stat-cell"><span>TIME REMAINING</span><strong id="stat-time-left">45s</strong></div>
+            <div class="stat-cell"><span>ROUNDS WON</span><strong id="stat-rounds-won">3 - 1</strong></div>
+          </div>
+        </div>
+
+        <div class="char-select-controls">
+          <button class="action-btn back-btn" id="btn-gameover-menu">MAIN MENU</button>
+          <button class="action-btn select-btn glow-btn" id="btn-gameover-rematch">REMATCH</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- External CDN Three.js library (No CORS issues loading via standard global scope) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Three.js Post-processing and Shaders for AAA Bloom visual effects -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+  <!-- Legends of Iron Custom Game files -->
+  <script src="src/game/Database.js"></script>
+  <script src="src/game/FX.js"></script>
+  <script src="src/game/Input.js"></script>
+  <script src="src/game/Engine.js"></script>
+  <script src="src/game/Fighter.js"></script>
+  <script src="src/game/AI.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>
